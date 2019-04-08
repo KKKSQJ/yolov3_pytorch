@@ -26,7 +26,7 @@ Run `detect.py` with `webcam=True` to show a live webcam feed.
 - Darknet `*.weights` format: https://pjreddie.com/media/files/yolov3.weights
 - PyTorch `*.pt` format: https://drive.google.com/drive/folders/1uxgUBemJVw9wZsdpboYbzUN4bcRhsuAI
 
-#参考网址
-https://github.com/ultralytics/yolov3
-https://pjreddie.com/darknet/yolo/
-https://blog.csdn.net/leviopku/article/details/82660381
+# 参考网址
+- https://github.com/ultralytics/yolov3
+- https://pjreddie.com/darknet/yolo/
+- https://blog.csdn.net/leviopku/article/details/82660381
