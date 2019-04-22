@@ -90,7 +90,7 @@ class LoadWebcam:  # for inference
 
 
 class LoadImagesAndLabels:  # for training
-    def __init__(self, path, batch_size=1, img_size=608, augment=False):
+    def __init__(self, path, batch_size=1, img_size=608, coco=True, augment=False):
         with open(path, 'r') as file:
             self.img_files = file.read().splitlines()
             self.img_files = list(filter(lambda x: len(x) > 0, self.img_files))
@@ -105,6 +105,7 @@ class LoadImagesAndLabels:  # for training
         self.batch_size = batch_size
         self.img_size = img_size
         self.augment = augment
+        self.coco = coco
         iter(self)
 
     def __iter__(self):
@@ -173,10 +174,17 @@ class LoadImagesAndLabels:  # for training
 
                 # Normalized xywh to pixel xyxy format
                 labels = labels0.copy()
-                labels[:, 1] = ratio * w * (labels0[:, 1] - labels0[:, 3] / 2) + padw
-                labels[:, 2] = ratio * h * (labels0[:, 2] - labels0[:, 4] / 2) + padh
-                labels[:, 3] = ratio * w * (labels0[:, 1] + labels0[:, 3] / 2) + padw
-                labels[:, 4] = ratio * h * (labels0[:, 2] + labels0[:, 4] / 2) + padh
+                if self.coco:
+                    labels[:, 1] = ratio * w * (labels0[:, 1] - labels0[:, 3] / 2) + padw
+                    labels[:, 2] = ratio * h * (labels0[:, 2] - labels0[:, 4] / 2) + padh
+                    labels[:, 3] = ratio * w * (labels0[:, 1] + labels0[:, 3] / 2) + padw
+                    labels[:, 4] = ratio * h * (labels0[:, 2] + labels0[:, 4] / 2) + padh
+                # xyxy to 416 xyxy format
+                else:
+                    labels[:, 1] = ratio * (labels0[:, 1]) + padw
+                    labels[:, 2] = ratio * (labels0[:, 2]) + padh
+                    labels[:, 3] = ratio * (labels0[:, 3]) + padw
+                    labels[:, 4] = ratio * (labels0[:, 4]) + padh
             else:
                 labels = np.array([])
 

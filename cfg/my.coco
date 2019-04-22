@@ -1,0 +1,6 @@
+classes=80 #类别数
+train=../data/coco/coco/trainvalno5k.txt  #训练图片数据路径 txt look like:/home/xx/xx/images/data/xxx.jpg
+valid=../data/coco/coco/5k.txt  #验证数据集路径
+names=data/coco.names  #类别名字
+backup=backup/
+# eval=coco
