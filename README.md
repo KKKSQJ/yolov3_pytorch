@@ -4,6 +4,21 @@
 
 # Training
 
+** train your own datase
+
+** --data-cfg='cfg/my.coco 
+
+** change data/coco.names
+
+** --coco=False
+
+** Two style:** 1:coco style(class x y w h) xywh is Normalized
+
+             ** 2:my dataset style(class x1 y1 x2 y2) xyxy is pixel
+** if your dataset like coco style,please set --coco=True
+
+** if set your own dataset,please set --coco=False
+
 **Start Training:** Run `train.py` to begin training after downloading COCO data with `data/get_coco_dataset.sh`.
 
 
