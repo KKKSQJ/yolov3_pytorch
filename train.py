@@ -17,6 +17,7 @@ def train(
         accumulate=1,
         multi_scale=False,
         freeze_backbone=False,
+        coco=True,
 ):
     weights = 'weights' + os.sep
     latest = weights + 'latest.pt'
@@ -35,7 +36,7 @@ def train(
     model = Darknet(cfg, img_size)
 
     # Get dataloader
-    dataloader = LoadImagesAndLabels(train_path, batch_size, img_size, augment=True)
+    dataloader = LoadImagesAndLabels(train_path, batch_size, img_size, coco, augment=True)
     # dataloader = torch.utils.data.DataLoader(dataloader, batch_size=batch_size, num_workers=0)
 
     lr0 = 0.001  # initial learning rate
@@ -198,6 +199,7 @@ if __name__ == '__main__':
     parser.add_argument('--multi-scale', action='store_true', help='random image sizes per batch 320 - 608')
     parser.add_argument('--img-size', type=int, default=32 * 13, help='pixels')
     parser.add_argument('--resume', action='store_true', help='resume training flag')
+    parser.add_argument('--coco', action='store_false', default=True, help='coco style:True  your dataset:false')
     opt = parser.parse_args()
     print(opt, end='\n\n')
 
@@ -212,4 +214,5 @@ if __name__ == '__main__':
         batch_size=opt.batch_size,
         accumulate=opt.accumulate,
         multi_scale=opt.multi_scale,
+        coco=opt.coco
     )
